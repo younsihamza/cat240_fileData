@@ -24,13 +24,13 @@ const (
 // It establishes a TCP connection to the radar, authenticates, and streams data.
 // The function handles reconnection attempts and data buffering.
 func ReadData() {
-	file, err := os.Open("data.txt")
+	// file, err := os.Open("data.txt")
 	
-	if err != nil {
-		fmt.Println("Error opening file:", err)
-		return 
-	}
-	defer file.Close()
+	// if err != nil {
+	// 	fmt.Println("Error opening file:", err)
+	// 	return 
+	// }
+	// defer file.Close()
 	for {
 		// scanner := bufio.NewScanner(file)
 		// for scanner.Scan() {
