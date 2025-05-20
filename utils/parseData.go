@@ -39,8 +39,8 @@ func processData(data []byte) error {
 	}
 
 	// Decode the parsed data
-	multipleGeometry , OneGeometry := cat240.Decode(validData)
-	if OneGeometry == nil {
+	multipleGeometry , _ := cat240.Decode(validData)
+	if multipleGeometry == nil {
 		return nil
 	}
 
@@ -49,14 +49,14 @@ func processData(data []byte) error {
 	if err != nil {
 		return err
 	}
-	onegeo, err := json.Marshal(OneGeometry)
-	if err != nil {
-		return err
-	}
+	// onegeo, err := json.Marshal(OneGeometry)
+	// if err != nil {
+	// 	return err
+	// }
 
 	// Send to output channel
 	global.ParsedData <- jsonData
-	global.ParsedDataOneGeo <- onegeo
+	// global.ParsedDataOneGeo <- onegeo
 	global.NUMBER_OF_PARSED_MESSAGES.Inc()
 	return nil
 }

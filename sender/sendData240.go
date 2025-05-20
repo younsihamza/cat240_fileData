@@ -77,19 +77,19 @@ func Sender() {
 			broadcastMessage(message)
 		}
 	})
-	route.GET("/radar240/geo", func(c *gin.Context) {
-		conn, err := global.Upgrader.Upgrade(c.Writer, c.Request, nil)
-		if err != nil {
-			global.Logger.Error("ERROR : ", zap.Error(err))
-			return
-		}
-		addClientOneGeo(conn)
-		defer removeClientOneGeo(conn)
-		for {
-			message := <-global.ParsedDataOneGeo
-			global.NUMBER_OF_SENT_MESSAGES.Inc()
-			broadcastMessageOneGeo(message)
-		}
-	})
+	// route.GET("/radar240/geo", func(c *gin.Context) {
+	// 	conn, err := global.Upgrader.Upgrade(c.Writer, c.Request, nil)
+	// 	if err != nil {
+	// 		global.Logger.Error("ERROR : ", zap.Error(err))
+	// 		return
+	// 	}
+	// 	addClientOneGeo(conn)
+	// 	defer removeClientOneGeo(conn)
+	// 	for {
+	// 		message := <-global.ParsedDataOneGeo
+	// 		global.NUMBER_OF_SENT_MESSAGES.Inc()
+	// 		broadcastMessageOneGeo(message)
+	// 	}
+	// })
 	route.Run(":" + os.Getenv("WEBSOCKET_SERVER_PORT"))
 }

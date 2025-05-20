@@ -1,9 +1,9 @@
 package utils
 
 import (
-	"bufio"
+	// "bufio"
 	"cat240/global"
-	"encoding/hex"
+	// "encoding/hex"
 	"fmt"
 	"net"
 	"os"
@@ -32,35 +32,35 @@ func ReadData() {
 	}
 	defer file.Close()
 	for {
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			line := scanner.Text()
-			hexData, err := hex.DecodeString(line)
-			if err != nil {
-				global.Logger.Error("Failed to decode hex string", zap.Error(err))
-				continue
-			}
-			global.FilteredData <- hexData
-			time.Sleep(100 * time.Microsecond) // Simulate processing delay
+		// scanner := bufio.NewScanner(file)
+		// for scanner.Scan() {
+		// 	line := scanner.Text()
+		// 	hexData, err := hex.DecodeString(line)
+		// 	if err != nil {
+		// 		global.Logger.Error("Failed to decode hex string", zap.Error(err))
+		// 		continue
+		// 	}
+		// 	global.FilteredData <- hexData
+		// 	time.Sleep(100 * time.Microsecond) // Simulate processing delay
 			
-		// conn, err := establishConnection()
-		// if err != nil {
-		// 	global.Logger.Error("Failed to establish connection", zap.Error(err))
-		// 	time.Sleep(RECONNECT_DELAY)
-		// 	continue
-		// }
-
-		// if err := authenticateConnection(conn); err != nil {
-		// 	global.Logger.Error("Failed to authenticate", zap.Error(err))
-		// 	conn.Close()
-		// 	continue
-		// }
-
-		// if err := readAndProcessData(conn); err != nil {
-		// 	global.Logger.Error("Error during data reading", zap.Error(err))
+		conn, err := establishConnection()
+		if err != nil {
+			global.Logger.Error("Failed to establish connection", zap.Error(err))
+			time.Sleep(RECONNECT_DELAY)
+			continue
 		}
 
-		// conn.Close()
+		if err := authenticateConnection(conn); err != nil {
+			global.Logger.Error("Failed to authenticate", zap.Error(err))
+			conn.Close()
+			continue
+		}
+
+		if err := readAndProcessData(conn); err != nil {
+			global.Logger.Error("Error during data reading", zap.Error(err))
+		}
+
+		conn.Close()
 	}
 }
 
