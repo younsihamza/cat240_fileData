@@ -1,0 +1,10 @@
+services:
+  cat240:
+    build: .
+    ports:
+      - "8084:8083"
+    environment:
+      RADAR_IP  : ${RADAR_IP}
+      RADAR_PORT: ${RADAR_PORT}
+      RADAR_PASSWORD: ${RADAR_PASSWORD}
+      WEBSOCKET_SERVER_PORT: ${WEBSOCKET_SERVER_PORT}
