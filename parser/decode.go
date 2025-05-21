@@ -176,10 +176,10 @@ func bitResolution(data *ValidData, bitPerCell int) {
 
 // toGeoJSON converts the radar data to GeoJSON format
 func toGeoJSON(data []BlockData) *map[string]interface{} {
-	coordinateWithBigerOpacity := make([][]float64, 0)
+	coordinateWithBigerOpacity := make([]map[string]interface{}, 0)
 	for _, block := range data {
 		if block.Intensity > 1 {
-			coordinateWithBigerOpacity = append(coordinateWithBigerOpacity, []float64{block.Longitude, block.Latitude})
+			coordinateWithBigerOpacity = append(coordinateWithBigerOpacity, map[string]interface{}{"opacity":  block.Intensity, "coordinates": []float64{block.Longitude, block.Latitude}})
 		}
 }
 	return &map[string]interface{}{
